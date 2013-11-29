@@ -1,0 +1,92 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Where is my IP address?</title>
+<link rel="stylesheet" href="css/foundation.css" />
+<link rel="stylesheet" href="css/stylesheet.css" />
+<script src="js/modernizr.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+<script>
+function getLocation()
+  {
+  if (navigator.geolocation)
+    {
+    navigator.geolocation.getCurrentPosition(showPosition);
+    }
+  else{x.innerHTML="Geolocation is not supported by this browser.";}
+  }
+function showPosition(position)
+  {
+  document.getElementById("latlng").value=position.coords.latitude + 
+  ", " + position.coords.longitude;	
+  var newtestlatlang = position.coords.latitude + 
+  ", " + position.coords.longitude;
+  }
+  getLocation()
+</script>
+<script type="text/javascript">
+var geocoder;
+var map;
+var infowindow = new google.maps.InfoWindow();
+var marker;
+function initialize() {
+  geocoder = new google.maps.Geocoder();
+  var latlng = new google.maps.LatLng(47.989922,-0.703125);
+  var mapOptions = {
+    zoom: 2,
+    center: latlng,
+    mapTypeId: 'roadmap'
+  }
+  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+}
+
+function codeLatLng() {
+  var input = document.getElementById('latlng').value;
+  var latlngStr = input.split(',', 2);
+  var lat = parseFloat(latlngStr[0]);
+  var lng = parseFloat(latlngStr[1]);
+  var latlng = new google.maps.LatLng(lat, lng);
+  geocoder.geocode({'latLng': latlng}, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      if (results[0]) {
+        map.setZoom(8);
+        marker = new google.maps.Marker({
+            position: latlng,
+            map: map
+        });
+		map.setCenter(marker.getPosition());
+        infowindow.setContent("<div style='font-size:15px; line-height:20px; text-align:center; width:200px; height:auto; padding-bottom:10px;'><h5 align='center'><b>You're Here</b></h5>" + results[0].formatted_address + "</div>");
+        infowindow.open(map, marker);
+      } else {
+        alert('No results found');
+      }
+    } else {
+      alert('Geocoder failed due to: ' + status);
+    }
+  });
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+</head>
+<body>
+<div class="row">
+  <div class="small-12 large-3 columns page_title_box">
+    <h1>Where is my IP address?</h1>
+    <h5>by Gaurang Zalariya</h5>
+    <div id="panel">
+      <input id="latlng" type="hidden" value="40.714224,-73.961452">
+      <input type="button" class="button" value="Where am I?" onclick="codeLatLng()" style="">
+    </div>
+  </div>
+  <div id="map-canvas"></div>
+</div>
+<script src="js/jquery.js"></script> 
+<script src="js/foundation.min.js"></script> 
+<script>
+      $(document).foundation();
+</script>
+</body>
+</html>

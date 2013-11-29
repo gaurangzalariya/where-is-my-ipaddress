@@ -1,0 +1,13 @@
+.page_title_box {
+	background-color:#323232; color:#fff; padding-top:25px; padding-bottom:25px; height:100%;
+}
+.page_title_box h1 {
+	font-size:2rem; color:#fff;
+}
+.page_title_box h5 {
+	font-size:1rem; color:#666;
+}
+#map-canvas {
+	position:absolute; width:100%; height:100%; background-color:#eaeaea; z-index:-1;
+}
+.button {margin-bottom:0px; margin-top:15px;}
