@@ -1,5 +1,5 @@
 .page_title_box {
-	background-color:#323232; color:#fff; padding-top:25px; padding-bottom:25px; height:100%;
+	background-color:#323232; color:#fff; padding-top:25px; padding-bottom:0px; height:100%;
 }
 .page_title_box h1 {
 	font-size:2rem; color:#fff;
@@ -11,3 +11,5 @@
 	position:absolute; width:100%; height:100%; background-color:#eaeaea; z-index:-1;
 }
 .button {margin-bottom:0px; margin-top:15px;}
+
+#widget .ui-header {display:none !important;}
